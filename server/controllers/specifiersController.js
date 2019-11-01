@@ -1,7 +1,7 @@
-const Specifier = require('./../models/posts/specifierModel');
-const ContactInfo = require('./../models/posts/contactInfoModel');
-const CompanyAttachments = require('./../models/posts/attachmentsModel');
-const catchAsyncFunc = require('./../utils/catchAsyncFuncs');
+const Specifier = require('/server/models/posts/specifierModel');
+const ContactInfo = require('/server/models/posts/contactInfoModel');
+const CompanyAttachments = require('/server/models/posts/attachmentsModel');
+const catchAsyncFunc = require('/server/utils/catchAsyncFuncs');
 const factory = require('./handlerFactory');
 
 /////////////////////////////   SPECIFIER  ///////////////////////////////////

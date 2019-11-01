@@ -1,22 +1,23 @@
 const multer = require('multer');
 const sharp = require('sharp');
-const Taxonomy = require('./../models/taxonomies/taxonomyModel');
-const Taxsettings = require('./../models/taxonomies/taxsettingsModel');
-const SpecifierTypes = require('./../models/taxonomies/specifierTypesModel');
-const ProjectTypes = require('./../models/taxonomies/projectTypesModel');
-const Categories = require('./../models/taxonomies/categoriesModel');
-const City = require('./../models/taxonomies/cityModel');
-const Country = require('./../models/taxonomies/countryModel');
-const KeyProjects = require('./../models/taxonomies/keyProjectsModel');
-const Products = require('./../models/taxonomies/productsModel');
-const ProjectContacts = require('./../models/taxonomies/projectContactsModel');
-const Sector = require('./../models/taxonomies/sectorModel');
-const SupplierType = require('./../models/taxonomies/supplierTypeModel');
-const SpecifierContacts = require('./../models/taxonomies/specifierContactsModel');
-const Stackholder = require('./../models/taxonomies/stackholderModel');
-const catchAsyncFunc = require('./../utils/catchAsyncFuncs');
+const Taxonomy = require('/server/models/taxonomies/taxonomyModel');
+const Taxsettings = require('/server/models/taxonomies/taxsettingsModel');
+const SpecifierTypes = require('/server/models/taxonomies/specifierTypesModel');
+const ProjectTypes = require('/server/models/taxonomies/projectTypesModel');
+const Categories = require('/server/models/taxonomies/categoriesModel');
+const City = require('/server/models/taxonomies/cityModel');
+const Country = require('/server/models/taxonomies/countryModel');
+const KeyClients = require('/server/models/taxonomies/keyClientsModel');
+const KeyProjects = require('/server/models/taxonomies/keyProjectsModel');
+const Products = require('/server/models/taxonomies/productsModel');
+const ProjectContacts = require('/server/models/taxonomies/projectContactsModel');
+const Sector = require('/server/models/taxonomies/sectorModel');
+const SupplierType = require('/server/models/taxonomies/supplierTypeModel');
+const SpecifierContacts = require('/server/models/taxonomies/specifierContactsModel');
+const Stackholder = require('/server/models/taxonomies/stackholderModel');
+const catchAsyncFunc = require('/server/utils/catchAsyncFuncs');
 const factory = require('./handlerFactory');
-const AppError = require('./../utils/appError');
+const AppError = require('/server/utils/appError');
 
 const multerStorage = multer.memoryStorage();
 
@@ -118,6 +119,18 @@ exports.getKeyProject = factory.getOne(KeyProjects);
 exports.updateKeyProject = factory.updateOne(KeyProjects);
 
 exports.deleteKeyProject = factory.deleteOne(KeyProjects);
+
+/////////////////////// KEY CLIENTS //////////////////////////////////
+
+exports.createKeyClients = factory.createOne(KeyClients);
+
+exports.getKeyClients = factory.getAll(KeyClients);
+
+exports.getKeyClient = factory.getOne(KeyClients);
+
+exports.updateKeyClient = factory.updateOne(KeyClients);
+
+exports.deleteKeyClient = factory.deleteOne(KeyClients);
 
 ///////////////////////////// SECTORS //////////////////////////////////////////
 

@@ -1,12 +1,12 @@
 const multer = require('multer');
 const sharp = require('sharp');
-const Supplier = require('./../models/posts/supplierModel');
-const ContactInfo = require('./../models/posts/contactInfoModel');
-const CompanyAttachments = require('./../models/posts/attachmentsModel');
-const Statistics = require('./../models/posts/statisticsModel');
-const catchAsyncFunc = require('./../utils/catchAsyncFuncs');
+const Supplier = require('/server/models/posts/supplierModel');
+const ContactInfo = require('/server/models/posts/contactInfoModel');
+const CompanyAttachments = require('/server/models/posts/attachmentsModel');
+const Statistics = require('/server/models/posts/statisticsModel');
+const catchAsyncFunc = require('/server/utils/catchAsyncFuncs');
 const factory = require('./handlerFactory');
-const AppError = require('./../utils/appError');
+const AppError = require('/server/utils/appError');
 const fs = require('fs');
 
 /////////////////////////////   SUPPLIER  ///////////////////////////////////

@@ -1,7 +1,7 @@
-const User = require('./../models/userModel');
-const APIresourceFunc = require('./../utils/APIresourceFunc');
-const catchAsyncFunc = require('./../utils/catchAsyncFuncs');
-const AppError = require('../utils/appError');
+const User = require('/server/models/userModel');
+const APIresourceFunc = require('/server/utils/APIresourceFunc');
+const catchAsyncFunc = require('/server/utils/catchAsyncFuncs');
+const AppError = require('/server/utils/appError');
 
 const filterInputObj = (obj, ...allowedFields) => {
   const newInputsObj = {};
