@@ -7,7 +7,6 @@ const ProjectTypes = require('./../models/taxonomies/projectTypesModel');
 const Categories = require('./../models/taxonomies/categoriesModel');
 const City = require('./../models/taxonomies/cityModel');
 const Country = require('./../models/taxonomies/countryModel');
-const KeyClients = require('./../models/taxonomies/keyClientsModel');
 const KeyProjects = require('./../models/taxonomies/keyProjectsModel');
 const Products = require('./../models/taxonomies/productsModel');
 const ProjectContacts = require('./../models/taxonomies/projectContactsModel');
@@ -119,18 +118,6 @@ exports.getKeyProject = factory.getOne(KeyProjects);
 exports.updateKeyProject = factory.updateOne(KeyProjects);
 
 exports.deleteKeyProject = factory.deleteOne(KeyProjects);
-
-/////////////////////// KEY CLIENTS //////////////////////////////////
-
-exports.createKeyClients = factory.createOne(KeyClients);
-
-exports.getKeyClients = factory.getAll(KeyClients);
-
-exports.getKeyClient = factory.getOne(KeyClients);
-
-exports.updateKeyClient = factory.updateOne(KeyClients);
-
-exports.deleteKeyClient = factory.deleteOne(KeyClients);
 
 ///////////////////////////// SECTORS //////////////////////////////////////////
 
