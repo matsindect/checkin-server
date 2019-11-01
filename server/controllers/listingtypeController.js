@@ -1,6 +1,6 @@
-const listingType = require('../models/listingtypeModel');
-const listingtypeSettings = require('../models/listingtypeSettingsModel');
-const catchAsyncFunc = require('../utils/catchAsyncFuncs');
+const listingType = require('./../models/listingtypeModel');
+const listingtypeSettings = require('./../models/listingtypeSettingsModel');
+const catchAsyncFunc = require('./../utils/catchAsyncFuncs');
 const factory = require('./handlerFactory');
 
 exports.createListingType = catchAsyncFunc(async (req, res) => {

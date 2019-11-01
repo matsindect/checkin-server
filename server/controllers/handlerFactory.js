@@ -1,6 +1,6 @@
-const APIresourceFunc = require('../utils/APIresourceFunc');
-const catchAsyncFunc = require('../utils/catchAsyncFuncs');
-const AppError = require('../utils/appError');
+const APIresourceFunc = require('./../utils/APIresourceFunc');
+const catchAsyncFunc = require('./../utils/catchAsyncFuncs');
+const AppError = require('./../utils/appError');
 
 const filterInputObj = (obj, ...allowedFields) => {
   const newInputsObj = {};

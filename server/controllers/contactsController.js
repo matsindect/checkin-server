@@ -1,5 +1,5 @@
-const Contacts = require('../models/posts/contactsModel');
-const catchAsyncFunc = require('../utils/catchAsyncFuncs');
+const Contacts = require('./../models/posts/contactsModel');
+const catchAsyncFunc = require('./../utils/catchAsyncFuncs');
 const factory = require('./handlerFactory');
 
 /////////////////////////////   CONTACTS  ///////////////////////////////////
