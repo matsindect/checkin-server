@@ -46,11 +46,11 @@
 
 <script>
 export default {
-  name: 'LoginUser',
+  name: "LoginUser",
   data() {
     return {
-      user_email_address: '',
-      user_password: ''
+      user_email_address: "",
+      user_password: ""
     };
   },
   methods: {
@@ -58,8 +58,10 @@ export default {
       let user_email_address = this.user_email_address;
       let user_password = this.user_password;
       this.$store
-        .dispatch('login', { user_email_address, user_password })
-        .then(() => this.$router.push('/dashboard'))
+        .dispatch("login", { user_email_address, user_password })
+        .then(() => {
+          this.$router.push("/dashboard");
+        })
         .catch(err => console.log(err));
     }
   }

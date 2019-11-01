@@ -24,7 +24,7 @@
                     label-for="specifier_name"
                     :label-cols="3"
                     >
-                    <b-form-input id="specifier_name" type="text" autocomplete="name"></b-form-input>
+                    <b-form-input id="specifier_name" type="text" autocomplete="name" :value="findSpecifier($route.params.id).specifier_name"></b-form-input>
                   </b-form-group>
                   <b-form-group
                     label="Overview"
@@ -198,29 +198,27 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
-  name: 'breadcrumbs',
+  name: "breadcrumbs",
   data() {
     return {
-      items: [
-        {
-          text: 'Admin',
-          href: '#'
-        },
-        {
-          text: 'Manage',
-          href: '#'
-        },
-        {
-          text: 'Library',
-          active: true
-        }
-      ],
       show: true,
       disabled: 0,
       cartegories: false,
       togglePress: false
     };
+  },
+  computed: {
+    ...mapGetters([
+      "findSpecifier",
+      "findCategory",
+      "findCity",
+      "findCountry",
+      "findKeyProjects",
+      "findProducts",
+      "findSectors"
+    ])
   }
 };
 </script>

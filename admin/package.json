@@ -32,6 +32,7 @@
     "flag-icon-css": "^3.3.0",
     "font-awesome": "^4.7.0",
     "json-form-data": "^1.5.0",
+    "moment": "^2.24.0",
     "perfect-scrollbar": "^1.4.0",
     "qs": "^6.9.0",
     "querystring": "^0.2.0",

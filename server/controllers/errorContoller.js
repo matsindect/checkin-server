@@ -1,4 +1,4 @@
-const AppError = require('/server/utils/appError');
+const AppError = require('../utils/appError');
 
 const handleCastDBError = err => {
   const message = `Invald ${err.path}: ${err.value}.`;
