@@ -28,6 +28,4 @@ const attachmentSchema = new Schema(
   }
 );
 
-const Attachment = mongoose.model('companyAttachment', attachmentSchema);
-
-module.exports = Attachment;
+module.exports = mongoose.model('companyAttachment', attachmentSchema);

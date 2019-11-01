@@ -53,9 +53,5 @@ specifierContactsSchema.pre('save', function(next) {
   this.slug = slugify(this.label, { lower: true });
   next();
 });
-const SpecifierContacts = mongoose.model(
-  'specifierContacts',
-  specifierContactsSchema
-);
 
-module.exports = SpecifierContacts;
+module.exports = mongoose.model('specifierContacts', specifierContactsSchema);

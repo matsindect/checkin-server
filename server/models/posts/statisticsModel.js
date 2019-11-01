@@ -44,6 +44,4 @@ const statisticsSchema = new Schema(
   }
 );
 
-const Statistics = mongoose.model('companyStatistics', statisticsSchema);
-
-module.exports = Statistics;
+module.exports = mongoose.model('companyStatistics', statisticsSchema);

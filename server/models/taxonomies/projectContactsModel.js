@@ -54,9 +54,4 @@ projectContactsSchema.pre('save', function(next) {
   next();
 });
 
-const ProjectContacts = mongoose.model(
-  'projectContacts',
-  projectContactsSchema
-);
-
-module.exports = ProjectContacts;
+module.exports = mongoose.model('projectContacts', projectContactsSchema);

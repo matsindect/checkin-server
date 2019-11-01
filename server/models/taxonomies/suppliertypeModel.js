@@ -37,6 +37,4 @@ supplierTypeSchema.pre('save', function(next) {
   next();
 });
 
-const SupplierType = mongoose.model('supplierType', supplierTypeSchema);
-
-module.exports = SupplierType;
+module.exports = mongoose.model('supplierType', supplierTypeSchema);

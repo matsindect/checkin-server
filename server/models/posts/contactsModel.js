@@ -102,6 +102,4 @@ contactsSchema.pre('save', function(next) {
   next();
 });
 
-const Contacts = mongoose.model('Contacts', contactsSchema);
-
-module.exports = Contacts;
+module.exports = mongoose.model('Contacts', contactsSchema);

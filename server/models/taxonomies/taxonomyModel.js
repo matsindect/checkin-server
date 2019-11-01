@@ -65,6 +65,5 @@ taxonomySchema.pre('save', function(next) {
   this.slug = slugify(this.label, { lower: true });
   next();
 });
-const Taxonomy = mongoose.model('taxonomy', taxonomySchema);
 
-module.exports = Taxonomy;
+module.exports = mongoose.model('taxonomy', taxonomySchema);

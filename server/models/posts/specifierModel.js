@@ -75,6 +75,4 @@ specifierPostsSchema.pre('save', function(next) {
   next();
 });
 
-const Specifier = mongoose.model('Specifier', specifierPostsSchema);
-
-module.exports = Specifier;
+module.exports = mongoose.model('Specifier', specifierPostsSchema);

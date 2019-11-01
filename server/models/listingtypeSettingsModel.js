@@ -63,9 +63,5 @@ const listingSettingsSchema = new Schema(
     strict: false
   }
 );
-const listingtypeSettings = mongoose.model(
-  'listingtypeSettings',
-  listingSettingsSchema
-);
 
-module.exports = listingtypeSettings;
+module.exports = mongoose.model('listingtypeSettings', listingSettingsSchema);

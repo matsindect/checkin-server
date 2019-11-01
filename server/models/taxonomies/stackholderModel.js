@@ -54,6 +54,5 @@ stackholderSchema.pre('save', function(next) {
   this.slug = slugify(this.label, { lower: true });
   next();
 });
-const Stackholder = mongoose.model('stackholders', stackholderSchema);
 
-module.exports = Stackholder;
+module.exports = mongoose.model('stackholders', stackholderSchema);

@@ -33,6 +33,4 @@ keyprojectsSchema.pre('save', function(next) {
   next();
 });
 
-const Keyprojects = mongoose.model('keyprojects', keyprojectsSchema);
-
-module.exports = Keyprojects;
+module.exports = mongoose.model('keyprojects', keyprojectsSchema);

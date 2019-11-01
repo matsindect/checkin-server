@@ -108,6 +108,4 @@ projectsSchema.pre('save', function(next) {
   next();
 });
 
-const Projects = mongoose.model('Projects', projectsSchema);
-
-module.exports = Projects;
+module.exports = mongoose.model('Projects', projectsSchema);

@@ -57,6 +57,5 @@ listingTypeSchema.pre('save', function(next) {
   this.slug = slugify(this.label, { lower: true });
   next();
 });
-const listingType = mongoose.model('listingType', listingTypeSchema);
 
-module.exports = listingType;
+module.exports = mongoose.model('listingType', listingTypeSchema);

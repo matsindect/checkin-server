@@ -33,6 +33,4 @@ projectTypesSchema.pre('save', function(next) {
   next();
 });
 
-const ProjectTypes = mongoose.model('projectTypes', projectTypesSchema);
-
-module.exports = ProjectTypes;
+module.exports = mongoose.model('projectTypes', projectTypesSchema);

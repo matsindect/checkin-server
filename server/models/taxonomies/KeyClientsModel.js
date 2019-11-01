@@ -33,6 +33,4 @@ keyclientsSchema.pre('save', function(next) {
   next();
 });
 
-const Keyclients = mongoose.model('keyclients', keyclientsSchema);
-
-module.exports = Keyclients;
+module.exports = mongoose.model('keyclients', keyclientsSchema);

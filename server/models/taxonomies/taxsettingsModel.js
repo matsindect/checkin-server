@@ -23,6 +23,4 @@ const taxsettingsSchema = new Schema(
   }
 );
 
-const Taxsettings = mongoose.model('taxonomySettings', taxsettingsSchema);
-
-module.exports = Taxsettings;
+module.exports = mongoose.model('taxonomySettings', taxsettingsSchema);

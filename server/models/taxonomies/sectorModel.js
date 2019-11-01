@@ -37,6 +37,4 @@ sectorSchema.pre('save', function(next) {
   next();
 });
 
-const Sector = mongoose.model('sector', sectorSchema);
-
-module.exports = Sector;
+module.exports = mongoose.model('sector', sectorSchema);

@@ -33,6 +33,4 @@ citySchema.pre('save', function(next) {
   next();
 });
 
-const City = mongoose.model('city', citySchema);
-
-module.exports = City;
+module.exports = mongoose.model('city', citySchema);

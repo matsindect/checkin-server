@@ -93,6 +93,4 @@ contactInfoSchema.pre(/^find/, function(next) {
 
   next();
 });
-const contactInfo = mongoose.model('contactInfo', contactInfoSchema);
-
-module.exports = contactInfo;
+module.exports = mongoose.model('contactInfo', contactInfoSchema);

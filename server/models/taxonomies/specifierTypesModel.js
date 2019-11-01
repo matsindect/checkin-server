@@ -32,6 +32,5 @@ specifierTypesSchema.pre('save', function(next) {
   this.slug = slugify(this.label, { lower: true });
   next();
 });
-const SpecifierTypes = mongoose.model('specifierTypes', specifierTypesSchema);
 
-module.exports = SpecifierTypes;
+module.exports = mongoose.model('specifierTypes', specifierTypesSchema);

@@ -33,6 +33,4 @@ countrySchema.pre('save', function(next) {
   next();
 });
 
-const Country = mongoose.model('country', countrySchema);
-
-module.exports = Country;
+module.exports = mongoose.model('country', countrySchema);
