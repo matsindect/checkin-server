@@ -24,14 +24,14 @@
                     label-for="specifier_name"
                     :label-cols="3"
                     >
-                    <b-form-input id="specifier_name" type="text" autocomplete="name"></b-form-input>
+                    <b-form-input id="specifier_name" type="text" autocomplete="name" v-model="specifier_name"></b-form-input>
                   </b-form-group>
                   <b-form-group
                     label="Overview"
                     label-for="description"
                     :label-cols="3"
                     >
-                    <b-form-textarea id="description" :rows="9" placeholder="please enter data to describe the specifier"></b-form-textarea>
+                    <b-form-textarea id="description" :rows="9" placeholder="please enter data to describe the specifier" v-model="description"></b-form-textarea>
                   </b-form-group>
                   <b-form-group>
                         <label for="specifier_type">Specifier Type</label>
@@ -55,20 +55,20 @@
                     <strong>Main Contact Information</strong>
                   </div>
                   <b-form-group>
-                    <label for="street">Street</label>
-                    <b-form-input type="text" id="street" placeholder="Enter street name"></b-form-input>
+                    <label for="business_address">Street</label>
+                    <b-form-input type="text" id="business_address" placeholder="Enter street name" v-model="business_address"></b-form-input>
                   </b-form-group>
                   <b-row>
                     <b-col sm="8">
                       <b-form-group>
                         <label for="contact_number">Office Number</label>
-                        <b-form-input type="text" id="contact_number" placeholder="Enter your office landline"></b-form-input>
+                        <b-form-input type="text" id="contact_number" placeholder="Enter your office landline" v-model="contact_number"></b-form-input>
                       </b-form-group>
                     </b-col>
                     <b-col sm="4">
                       <b-form-group>
                         <label for="po_box">P.O Box</label>
-                        <b-form-input type="text" id="po_box" placeholder="P.O BOX"></b-form-input>
+                        <b-form-input type="text" id="po_box" placeholder="P.O BOX" v-model="po_box"></b-form-input>
                       </b-form-group>
                     </b-col>
                   </b-row>
@@ -76,13 +76,13 @@
                     <b-col sm="6">
                       <b-form-group>
                         <label for="company_email_address">Company Email</label>
-                        <b-form-input type="text" id="company_email_address" placeholder="Enter company email address"></b-form-input>
+                        <b-form-input type="text" id="company_email_address" placeholder="Enter company email address" v-model="company_email_address"></b-form-input>
                       </b-form-group>
                     </b-col>
                     <b-col sm="6">
                       <b-form-group>
                         <label for="website">Website</label>
-                        <b-form-input type="text" id="website" placeholder="http://wida-me.com"></b-form-input>
+                        <b-form-input type="text" id="website" placeholder="http://wida-me.com" v-model="website"></b-form-input>
                       </b-form-group>
                     </b-col>
                   </b-row>
@@ -200,31 +200,31 @@
 </template>
 
 <script>
-import jsonToFormData from 'json-form-data';
+import jsonToFormData from "json-form-data";
 export default {
-  name: 'breadcrumbs',
+  name: "breadcrumbs",
   data() {
     return {
-      specifier_name:'',
-      description:'',
-      specifier_type:[],
-      company_logo:'',
+      specifier_name: "",
+      description: "",
+      specifier_type: [],
+      company_logo: "",
       country: [],
-      business_address: '',
-      other_address: '',
-      po_box: '',
+      business_address: "",
+      other_address: "",
+      po_box: "",
       city: [],
-      contact_number: '',
-      company_email_address: '',
-      website: '',
-      designation:'',
-      main_contact:'',
-      main_contact_number:'',
-      main_email_address:'',
-      secondary_contact:'',
-      secondary_contact_number:'',
-      secondary_email_address:'',
-      secondary_designation:'',
+      contact_number: "",
+      company_email_address: "",
+      website: "",
+      designation: "",
+      main_contact: "",
+      main_contact_number: "",
+      main_email_address: "",
+      secondary_contact: "",
+      secondary_contact_number: "",
+      secondary_email_address: "",
+      secondary_designation: "",
       show: true,
       disabled: 0,
       cartegories: false,
@@ -233,7 +233,7 @@ export default {
   },
   methods: {
     IMAGE_PROCESS(image) {
-      const extension = image.type.split('/')[1];
+      const extension = image.type.split("/")[1];
       const icon = new File([image], `${Date.now()}.${extension}`, {
         type: image.type
       });
@@ -241,9 +241,9 @@ export default {
     },
     submit() {
       let formData = {
-        specifier_name:this.specifier_name,
-        description:this.description,
-        specifier_type:this.specifier_type,
+        specifier_name: this.specifier_name,
+        description: this.description,
+        specifier_type: this.specifier_type,
         contact_info: {
           country: this.country,
           business_address: this.business_address,
@@ -253,50 +253,50 @@ export default {
           contact_number: this.contact_number,
           company_email_address: this.company_email_address,
           website: this.website,
-          designation:this.designation,
-          main_contact:this.main_contact,
-          main_contact_number:this.main_contact,
-          main_email_address:this.main_email_address,
-          secondary_contact:this.secondary_contact,
-          secondary_contact_number:this.secondary_contact_number,
-          secondary_email_address:this.secondary_email_address,
-          secondary_designation:this.secondary_designation,
+          designation: this.designation,
+          main_contact: this.main_contact,
+          main_contact_number: this.main_contact_number,
+          main_email_address: this.main_email_address,
+          secondary_contact: this.secondary_contact,
+          secondary_contact_number: this.secondary_contact_number,
+          secondary_email_address: this.secondary_email_address,
+          secondary_designation: this.secondary_designation
         },
         company_logo: this.company_logo
           ? this.IMAGE_PROCESS(this.company_logo)
-          : null,
+          : null
       };
 
       var options = {
         showLeafArrayIndexes: true,
         includeNullValues: false,
         mapping: function(value) {
-          if (typeof value === 'boolean') {
-            return +value ? '1' : '0';
+          if (typeof value === "boolean") {
+            return +value ? "1" : "0";
           }
           return value;
         }
       };
       let config = {
         headers: {
-          'Content-Type': `multipart/form-data; boundary=${formData._boundary}`
+          "Content-Type": `multipart/form-data; boundary=${formData._boundary}`
         }
       };
       let data = jsonToFormData(formData, options);
-      this.$store.dispatch('SAVE_SPECIFIER', {
+      this.$store.dispatch("SAVE_SPECIFIER", {
         data: data,
         config
       });
     },
     handleLogoUpload() {
       this.company_logo = this.$refs.company_logo.files[0];
-    },
+    }
   },
   computed: {
-    options(){
-      return this.$store.state.Specifier.specifier
+    options() {
+      return this.$store.state.Specifier.specifier;
     },
-     cities() {
+    cities() {
       return this.$store.state.city.city;
     },
     countries() {
@@ -304,8 +304,8 @@ export default {
     },
     specifierTypes() {
       return this.$store.state.specifierType.specifiertype;
-    },
-  },
+    }
+  }
 };
 </script>
 <style scoped>

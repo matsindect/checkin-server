@@ -374,7 +374,7 @@
                           <b-form-group>
                             <label for="products">Products</label>
                             <div>
-                              <multiselect v-model="products" tag-placeholder="Add this as new tag" placeholder="Search or add a tag" label="label" track-by="_id" :options="products" :multiple="true" :taggable="true" @tag="addTag"></multiselect>
+                              <multiselect v-model="products" tag-placeholder="Add this as new tag" placeholder="Search or add a tag" label="label" track-by="_id" :options="ProductsOptions" :multiple="true" :taggable="true" @tag="addTag"></multiselect>
                               
                             </div>
                           </b-form-group>
@@ -398,62 +398,62 @@
 </template>
 
 <script>
-import Multiselect from 'vue-multiselect';
-import jsonToFormData from 'json-form-data';
-import country from '../../store/modules/country';
+import Multiselect from "vue-multiselect";
+import jsonToFormData from "json-form-data";
+import country from "../../store/modules/country";
 export default {
-  name: 'breadcrumbs',
+  name: "breadcrumbs",
   components: {
     Multiselect
   },
   data() {
     return {
       key_clientsOptions: [],
-      trade_name: '',
-      listing_type: '',
+      trade_name: "",
+      listing_type: "",
       veryfied: null,
-      established_date: '',
+      established_date: "",
       categories: [],
       products: [],
       sector: [],
       key_projects: [],
       key_clients: [],
-      about_company: '',
-      vat_number: '',
+      about_company: "",
+      vat_number: "",
       contact_info: {
         country: [],
-        business_address: '',
-        other_address: '',
-        po_box: '',
+        business_address: "",
+        other_address: "",
+        po_box: "",
         city: [],
-        contact_number: '',
-        fax: '',
-        company_email_address: '',
-        website: '',
-        main_contact: '',
-        designation: '',
-        main_contact_number: '',
-        main_email_address: '',
-        secondary_contact: '',
-        secondary_designation: '',
-        secondary_email_address: ''
+        contact_number: "",
+        fax: "",
+        company_email_address: "",
+        website: "",
+        main_contact: "",
+        designation: "",
+        main_contact_number: "",
+        main_email_address: "",
+        secondary_contact: "",
+        secondary_designation: "",
+        secondary_email_address: ""
       },
       company_attachments: {
-        company_logo: '',
-        gallary_image: '',
-        company_profile: '',
-        company_catalogue: '',
-        trade_licence: ''
+        company_logo: "",
+        gallary_image: "",
+        company_profile: "",
+        company_catalogue: "",
+        trade_licence: ""
       },
       company_statistics: {
-        labour_force: '',
-        secondary_labour: '',
-        office_admin_staff: '',
-        accreditation: '',
-        annual_projects_value: '',
-        current_project_value: '',
-        credit_allowance: '',
-        min_order_accepted: ''
+        labour_force: "",
+        secondary_labour: "",
+        office_admin_staff: "",
+        accreditation: "",
+        annual_projects_value: "",
+        current_project_value: "",
+        credit_allowance: "",
+        min_order_accepted: ""
       },
       show: true,
       disabled: 0,
@@ -471,7 +471,7 @@ export default {
       this.value.push(tag);
     },
     IMAGE_PROCESS(image) {
-      const extension = image.type.split('/')[1];
+      const extension = image.type.split("/")[1];
       const icon = new File([image], `${Date.now()}.${extension}`, {
         type: image.type
       });
@@ -507,7 +507,8 @@ export default {
           main_email_address: this.contact_info.main_email_address,
           secondary_contact: this.contact_info.secondary_contact,
           secondary_designation: this.contact_info.secondary_designation,
-          secondary_email_address: this.contact_info.secondary_email_address
+          secondary_email_address: this.contact_info.secondary_email_address,
+          secondary_contact_number: this.contact_info.secondary_contact_number
         },
         company_statistics: {
           labour_force: this.company_statistics.labour_force,
@@ -519,6 +520,7 @@ export default {
           credit_allowance: this.company_statistics.credit_allowance,
           min_order_accepted: this.company_statistics.min_order_accepted
         },
+
         company_logo: this.company_attachments.company_logo
           ? this.IMAGE_PROCESS(this.company_attachments.company_logo)
           : null,
@@ -540,19 +542,19 @@ export default {
         showLeafArrayIndexes: true,
         includeNullValues: false,
         mapping: function(value) {
-          if (typeof value === 'boolean') {
-            return +value ? '1' : '0';
+          if (typeof value === "boolean") {
+            return +value ? "1" : "0";
           }
           return value;
         }
       };
       let config = {
         headers: {
-          'Content-Type': `multipart/form-data; boundary=${formData._boundary}`
+          "Content-Type": `multipart/form-data; boundary=${formData._boundary}`
         }
       };
       let data = jsonToFormData(formData, options);
-      this.$store.dispatch('SAVE_SUPPLIER', {
+      this.$store.dispatch("SAVE_SUPPLIER", {
         data: data,
         config
       });

@@ -169,32 +169,32 @@
 </template>
 
 <script>
-import Multiselect from 'vue-multiselect';
-import jsonToFormData from 'json-form-data';
+import Multiselect from "vue-multiselect";
+import jsonToFormData from "json-form-data";
 export default {
-  name: 'breadcrumbs',
+  name: "breadcrumbs",
   components: {
     Multiselect
   },
   data() {
     return {
       value: [],
-      company_logo:'',
-      gallary_image:'',
+      company_logo: "",
+      gallary_image: "",
       country: [],
-      project_type:[],
-      project_name:'',
-      description:'',
-      project_type:'',
-      project_owner:'',
-      project_stage:'',
-      business_address: '',
-      other_address: '',
-      po_box: '',
+      project_type: [],
+      project_name: "",
+      description: "",
+      project_type: "",
+      project_owner: "",
+      project_stage: "",
+      business_address: "",
+      other_address: "",
+      po_box: "",
       city: [],
-      contact_number: '',
-      company_email_address: '',
-      website: '',
+      contact_number: "",
+      company_email_address: "",
+      website: "",
       show: true,
       disabled: 0,
       cartegories: false,
@@ -211,7 +211,7 @@ export default {
       this.value.push(tag);
     },
     IMAGE_PROCESS(image) {
-      const extension = image.type.split('/')[1];
+      const extension = image.type.split("/")[1];
       const icon = new File([image], `${Date.now()}.${extension}`, {
         type: image.type
       });
@@ -219,11 +219,12 @@ export default {
     },
     submit() {
       let formData = {
-        project_name:this.project_name,
-        description:this.description,
-        project_type:this.project_type,
-        project_owner:this.project_owner,
-        project_stage:this.project_stage,
+        project_name: this.project_name,
+        description: this.description,
+        project_type: this.project_type,
+        project_owner: this.project_owner,
+        project_stage: this.project_stage,
+        stackholders: this.value,
         contact_info: {
           country: this.country,
           business_address: this.business_address,
@@ -232,7 +233,7 @@ export default {
           city: this.city,
           contact_number: this.contact_number,
           company_email_address: this.company_email_address,
-          website: this.website,
+          website: this.website
         },
         company_logo: this.company_logo
           ? this.IMAGE_PROCESS(this.company_logo)
@@ -240,26 +241,25 @@ export default {
         gallary_image: this.gallary_image
           ? this.IMAGE_PROCESS(this.gallary_image)
           : null
-  
       };
 
       var options = {
         showLeafArrayIndexes: true,
         includeNullValues: false,
         mapping: function(value) {
-          if (typeof value === 'boolean') {
-            return +value ? '1' : '0';
+          if (typeof value === "boolean") {
+            return +value ? "1" : "0";
           }
           return value;
         }
       };
       let config = {
         headers: {
-          'Content-Type': `multipart/form-data; boundary=${formData._boundary}`
+          "Content-Type": `multipart/form-data; boundary=${formData._boundary}`
         }
       };
       let data = jsonToFormData(formData, options);
-      this.$store.dispatch('SAVE_PROJECT', {
+      this.$store.dispatch("SAVE_PROJECT", {
         data: data,
         config
       });
@@ -272,10 +272,10 @@ export default {
     }
   },
   computed: {
-    options(){
-      return this.$store.state.Specifier.specifier
+    options() {
+      return this.$store.state.Specifier.specifier;
     },
-     cities() {
+    cities() {
       return this.$store.state.city.city;
     },
     countries() {
@@ -283,8 +283,8 @@ export default {
     },
     projectType() {
       return this.$store.state.projectType.projecttype;
-    },
-  },
+    }
+  }
 };
 </script>
 <style scoped>

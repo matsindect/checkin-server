@@ -1,14 +1,14 @@
-import Vue from 'vue';
-import Axios from 'axios';
+import Vue from "vue";
+import Axios from "axios";
 
 const state = {
   specifier: [],
   headers: {
-    'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*'
+    "Content-Type": "application/json",
+    "Access-Control-Allow-Origin": "*"
   },
   formHeader: {
-    'Content-Type': 'multipart/form-data'
+    "Content-Type": "multipart/form-data"
   }
 };
 const getters = {
@@ -32,19 +32,19 @@ const mutations = {
 const actions = {
   GET_SPECIFIER: async context => {
     let specifier = await Axios.get(
-      'http://localhost:8086/api/v1/specifiers/',
+      "http://localhost:8086/api/v1/specifiers/",
       state.headers
     );
-    context.commit('SET_SPECIFIER', specifier.data.data.doc);
+    context.commit("SET_SPECIFIER", specifier.data.data.doc);
   },
   SAVE_SPECIFIER: async (context, payload) => {
     let data = await Axios.post(
-      'http://localhost:8086/api/v1/specifiers/',
+      "http://localhost:8086/api/v1/specifiers/",
       payload.data,
       { headers: payload.config }
     );
     //  console.log(data.data.data.doc);
-    context.commit('ADD_SPECIFIER', data.data.data.doc);
+    context.commit("ADD_SPECIFIER", data.data.data.doc);
   },
 
   UPDATE_SPECIFIER: async (context, { id, payload, config }) => {
@@ -54,7 +54,7 @@ const actions = {
       { header: config.headers }
     );
 
-    context.commit('EDIT_SPECIFIER', data.data.data.doc);
+    context.commit("EDIT_SPECIFIER", data.data.data.specifier);
   }
 };
 // "express": "^4.17.1",

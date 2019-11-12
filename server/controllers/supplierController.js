@@ -160,7 +160,10 @@ exports.createSupplier = catchAsyncFunc(async (req, res) => {
   await taxonomy.save();
 
   res.status(201).send({
-    _id: taxonomy._id
+    status: 'success',
+    data: {
+      doc: taxonomy
+    }
   });
 });
 
@@ -169,40 +172,89 @@ exports.getSpecifiers = factory.getAll(Supplier);
 exports.getSupplier = factory.getOne(Supplier);
 
 exports.updateSupplier = catchAsyncFunc(async (req, res, next) => {
-  const contact = await ContactInfo.findByIdAndUpdate(
-    req.body.contact_info._id,
-    req.body.contact_info,
-    {
-      new: true,
-      runValidators: true
+  if (req.body.contact_info) {
+    const contact = await ContactInfo.findByIdAndUpdate(
+      req.body.contact_info._id,
+      req.body.contact_info,
+      {
+        new: true,
+        runValidators: true
+      }
+    );
+    if (!contact) {
+      return next(new AppError('There is no contacts with that id', 404));
     }
-  );
-  if (!contact) {
-    return next(new AppError('There is no contacts with that id', 404));
+  } else if (req.body.contact_info == null) {
+    const info = await ContactInfo.create(req.body.contact_info);
+
+    if (info) req.body.contact_info = info;
   }
-  const attachment = await CompanyAttachments.findByIdAndUpdate(
-    req.body.company_attachments._id,
-    req.body.company_attachments,
-    {
-      new: true,
-      runValidators: true
+
+  if (req.body.company_attachments) {
+    const attachment = await CompanyAttachments.findByIdAndUpdate(
+      req.body.company_attachments._id,
+      {
+        $set: {
+          company_logo:
+            req.files.company_logo.filename || req.body.company_logo,
+          gallary_image:
+            req.files.gallary_image.filename || req.body.gallary_image,
+          company_profile:
+            req.files.company_profile.filename || req.body.company_profile,
+          company_catalogue:
+            req.files.company_catalogue.filename || req.body.company_catalogue,
+          trade_licence:
+            req.files.trade_licence.filename || req.body.trade_licence
+        }
+      },
+      {
+        new: true,
+        runValidators: true
+      }
+    );
+    if (!attachment) {
+      return next(new AppError('There is no attatchment with that id', 404));
     }
-  );
-  if (!attachment) {
-    return next(new AppError('There is no attatchment with that id', 404));
-  }
-  const stats = await Statistics.findByIdAndUpdate(
-    req.body.company_statistics._id,
-    req.body.company_statistics,
-    {
-      new: true,
-      runValidators: true
+  } else if (req.body.company_attachments == null) {
+    if (req.files) {
+      req.body.company_attachments = {
+        company_logo: req.files.company_logo.filename || req.body.company_logo,
+        gallary_image:
+          req.files.gallary_image.filename || req.body.gallary_image,
+        company_profile:
+          req.files.company_profile.filename || req.body.company_profile,
+        company_catalogue:
+          req.files.company_catalogue.filename || req.body.company_catalogue,
+        trade_licence:
+          req.files.trade_licence.filename || req.body.trade_licence
+      };
     }
-  );
-  if (!stats) {
-    return next(new AppError('There is no stats with that id', 404));
+    const attachment = await CompanyAttachments.create(
+      req.body.company_attachments
+    );
+
+    if (attachment) req.body.company_attachments = attachment;
   }
-  const taxonomy = await Supplier.findByIdAndUpdate(req.params.id, req.body, {
+
+  if (req.body.company_statistics) {
+    const stats = await Statistics.findByIdAndUpdate(
+      req.body.company_statistics._id,
+      req.body.company_statistics,
+      {
+        new: true,
+        runValidators: true
+      }
+    );
+    if (!stats) {
+      return next(new AppError('There is no stats with that id', 404));
+    }
+  } else if (req.body.company_statistics == null) {
+    const stats = await Statistics.create(req.body.company_statistics);
+
+    if (stats) req.body.company_statistics = stats;
+  }
+
+  const supplier = await Supplier.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true
   });

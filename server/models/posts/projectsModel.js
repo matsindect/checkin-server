@@ -33,21 +33,14 @@ const projectsSchema = new Schema(
     stackholders: [
       {
         type: mongoose.Schema.ObjectId,
-        ref: 'stackholders'
+        ref: 'Specifier'
       }
     ],
-    categories: [
-      {
-        type: mongoose.Schema.ObjectId,
-        ref: 'categories'
-      }
-    ],
-    project_contacts: [
-      {
-        type: mongoose.Schema.ObjectId,
-        ref: 'contactInfo'
-      }
-    ],
+    project_contacts: {
+      type: types.ObjectId,
+      ref: 'contactInfo',
+      default: null
+    },
     project_stage: {
       type: types.String,
       trim: true
@@ -76,7 +69,8 @@ const projectsSchema = new Schema(
   {
     collection: 'projects',
     timestamps: true,
-    strict: true
+    strict: true,
+    autoIndex: false
   }
 );
 
@@ -95,7 +89,7 @@ projectsSchema.pre(/^find/, function(next) {
   this.populate('project_contacts')
     .populate('company_attachments')
     .populate('categories')
-    .populate('stackholders')
+    .populate({ path: 'stackholders', select: 'specifier_name' })
     .populate({ path: 'project_type', select: 'label' })
     .populate({ path: 'project_location', select: 'label' })
     .populate({ path: 'country', select: 'label' })

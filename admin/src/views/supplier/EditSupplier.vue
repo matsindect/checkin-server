@@ -314,7 +314,7 @@
                     <b-col sm="6">
                       <b-form-group>
                         <label for="min_order_accepted">Min Order Accepted</label>
-                        <b-form-input type="text" id="min_order_accepted" placeholder="http://wida-me.com" :value="findSupplier($route.params.id).company_statistics.min_order_accepted"  @input="input_min_order_accepted"></b-form-input>
+                        <b-form-input type="text" id="min_order_accepted" placeholder="Minimun ordre accepted" :value="findSupplier($route.params.id).company_statistics.min_order_accepted"  @input="input_min_order_accepted"></b-form-input>
                       </b-form-group>
                     </b-col>
                   </b-row>
@@ -507,6 +507,7 @@ export default {
         key_projects: this.key_projects || supplier.key_projects,
         key_clients: this.key_clients,
         contact_info: {
+          _id: supplier.contact_info._id,
           country: this.contact_info.country || supplier.contact_info.country,
           business_address:
             this.contact_info.business_address ||
@@ -543,9 +544,13 @@ export default {
             supplier.contact_info.secondary_designation,
           secondary_email_address:
             this.contact_info.secondary_email_address ||
-            supplier.contact_info.secondary_email_address
+            supplier.contact_info.secondary_email_address,
+          secondary_contact_number:
+            this.contact_info.secondary_contact_number ||
+            supplier.contact_info.secondary_contact_number
         },
         company_statistics: {
+          _id: supplier.company_statistics._id,
           labour_force:
             this.company_statistics.labour_force ||
             supplier.company_statistics.labour_force,
@@ -571,21 +576,34 @@ export default {
             this.company_statistics.min_order_accepted ||
             supplier.company_statistics.min_order_accepted
         },
+        company_attachments: {
+          _id: supplier.company_attachments._id
+        },
         company_logo: this.company_attachments.company_logo
           ? this.IMAGE_PROCESS(this.company_attachments.company_logo)
-          : supplier.company_attachments.company_logo,
+          : supplier.company_attachments
+            ? supplier.company_attachments.company_logo
+            : null,
         gallary_image: this.company_attachments.gallary_image
           ? this.IMAGE_PROCESS(this.company_attachments.gallary_image)
-          : supplier.company_attachments.gallary_image,
+          : supplier.company_attachments
+            ? supplier.company_attachments.gallary_image
+            : null,
         company_profile: this.company_attachments.company_profile
           ? this.IMAGE_PROCESS(this.company_attachments.company_profile)
-          : supplier.company_attachments.company_profile,
+          : supplier.company_attachments
+            ? supplier.company_attachments.company_profile
+            : null,
         company_catalogue: this.company_attachments.company_catalogue
           ? this.IMAGE_PROCESS(this.company_attachments.company_catalogue)
-          : supplier.company_attachments.company_catalogue,
+          : supplier.company_attachments
+            ? supplier.company_attachments.company_catalogue
+            : null,
         trade_licence: this.company_attachments.trade_licence
           ? this.IMAGE_PROCESS(this.company_attachments.trade_licence)
-          : supplier.company_attachments.trade_licence
+          : supplier.company_attachments
+            ? supplier.company_attachments.trade_licence
+            : null
       };
 
       var options = {
@@ -604,15 +622,16 @@ export default {
         }
       };
       let data = jsonToFormData(formData, options);
+      console.log(data);
       this.$store.dispatch("UPDATE_SUPPLIER", {
         id: supplierId,
-        data: data,
+        payload: data,
         config
       });
     },
     fomartDates(dates) {
       let newdate = moment(dates).format("MMMM D, YYYY");
-      console.log(newdate);
+      // console.log(newdate);
       return newdate;
     },
     input_trade_name(e) {

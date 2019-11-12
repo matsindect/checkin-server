@@ -1,14 +1,14 @@
-import Vue from 'vue';
-import Axios from 'axios';
+import Vue from "vue";
+import Axios from "axios";
 
 const state = {
   supplier: [],
   headers: {
-    'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*'
+    "Content-Type": "application/json",
+    "Access-Control-Allow-Origin": "*"
   },
   formHeader: {
-    'Content-Type': 'multipart/form-data'
+    "Content-Type": "multipart/form-data"
   }
 };
 const getters = {
@@ -32,19 +32,20 @@ const mutations = {
 const actions = {
   GET_SUPPLIER: async context => {
     let supplier = await Axios.get(
-      'http://localhost:8086/api/v1/suppliers/',
+      "http://localhost:8086/api/v1/suppliers/",
       state.headers
     );
-    context.commit('SET_SUPPLIER', supplier.data.data.doc);
+    context.commit("SET_SUPPLIER", supplier.data.data.doc);
   },
   SAVE_SUPPLIER: async (context, payload) => {
+    console.log(payload);
     let data = await Axios.post(
-      'http://localhost:8086/api/v1/suppliers/',
+      "http://localhost:8086/api/v1/suppliers/",
       payload.data,
       { headers: payload.config }
     );
     //  console.log(data.data.data.doc);
-    context.commit('ADD_SUPPLIER', data.data.data.doc);
+    context.commit("ADD_SUPPLIER", data.data.data.doc);
   },
 
   UPDATE_SUPPLIER: async (context, { id, payload, config }) => {
@@ -54,7 +55,7 @@ const actions = {
       { header: config.headers }
     );
 
-    context.commit('EDIT_SUPPLIER', data.data.data.doc);
+    context.commit("EDIT_SUPPLIER", data.data.data.supplier);
   }
 };
 // "express": "^4.17.1",

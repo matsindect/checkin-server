@@ -14,6 +14,8 @@ router
   .post(
     authController.protect,
     authController.restrictTo('admin'),
+    specifierController.uploadlogo,
+    specifierController.processLogo,
     specifierController.createSpecifier
   )
   .get(
@@ -32,6 +34,8 @@ router
   .patch(
     authController.protect,
     authController.restrictTo('admin'),
+    specifierController.uploadlogo,
+    specifierController.processLogo,
     specifierController.updateSpecifier
   )
   .delete(
