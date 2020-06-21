@@ -1,9 +1,7 @@
 const multer = require('multer');
 const sharp = require('sharp');
-const Post = require('../models/posts/PostModel');
-const ContactInfo = require('../models/posts/contactInfoModel');
+const Post = require('../models/posts/postModel');
 const postMedia = require('../models/posts/mediaModel');
-const Statistics = require('../models/posts/statisticsModel');
 const catchAsyncFunc = require('../utils/catchAsyncFuncs');
 const factory = require('./handlerFactory');
 const AppError = require('../utils/appError');
@@ -79,8 +77,6 @@ exports.createPost = catchAsyncFunc(async (req, res) => {
     }
   });
 });
-
-exports.getSpecifiers = factory.getAll(Post);
 
 exports.getPost = factory.getOne(Post);
 

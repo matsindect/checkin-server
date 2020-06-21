@@ -34,7 +34,7 @@ const postSchema = new Schema({
     {
       user: {
         type: mongoose.Schema.ObjectId,
-        ref: 'users'
+        ref: 'user'
       }
     }
   ],
@@ -42,7 +42,7 @@ const postSchema = new Schema({
     {
       user: {
         type: mongoose.Schema.ObjectId,
-        ref: 'users'
+        ref: 'user'
       },
       text: {
         type: String,
@@ -65,9 +65,8 @@ const postSchema = new Schema({
     default: Date.now
   },
   media: {
-    type: mongoose.Schema.ObjectIdd,
-    ref: 'media',
-    default: null
+    type: mongoose.Schema.ObjectId,
+    ref: 'media'
   },
   status: {
     type: types.Boolean,

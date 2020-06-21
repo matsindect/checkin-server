@@ -2,7 +2,6 @@ const User = require('../models/userModel');
 const APIresourceFunc = require('../utils/APIresourceFunc');
 const catchAsyncFunc = require('../utils/catchAsyncFuncs');
 const AppError = require('../utils/appError');
-const gravatar = require('gravatar');
 
 const filterInputObj = (obj, ...allowedFields) => {
   const newInputsObj = {};
@@ -19,18 +18,12 @@ exports.createUser = catchAsyncFunc(async (req, res, next) => {
     errors = 'Email already exists';
     return res.status(400).json(errors);
   } else {
-    const avatar = gravatar.url(req.body.user_email_address, {
-      s: '200', // Size
-      r: 'pg', // Rating
-      d: 'mm' // Default
-    });
     const newUser = await User.create({
       user_name: req.body.user_name,
       user_firstname: req.body.user_firstname,
       user_lastname: req.body.user_lastname,
       user_email_address: req.body.user_email_address,
-      user_password: req.body.user_password,
-      avatar
+      user_password: req.body.user_password
     });
 
     res.status(201).send({

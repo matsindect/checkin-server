@@ -23,4 +23,5 @@ router
     postController.updatePost
   )
   .delete(authController.protect, postController.deletePost);
+
 module.exports = router;

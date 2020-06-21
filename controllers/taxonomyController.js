@@ -4,10 +4,9 @@ const Taxonomy = require('../models/taxonomies/taxonomyModel');
 const Categories = require('../models/taxonomies/categoriesModel');
 const City = require('../models/taxonomies/cityModel');
 const Country = require('../models/taxonomies/countryModel');
-const Sector = require('../models/taxonomies/sectorModel');
 const catchAsyncFunc = require('../utils/catchAsyncFuncs');
-const factory = require('./handlerFactory');
 const AppError = require('../utils/appError');
+const factory = require('./handlerFactory');
 
 const multerStorage = multer.memoryStorage();
 
@@ -85,3 +84,15 @@ exports.getCountry = factory.getOne(Country);
 exports.updateCountry = factory.updateOne(Country);
 
 exports.deleteCountry = factory.deleteOne(Country);
+
+///////////////////////////////// Categories ////////////////////////////////////
+
+exports.createCategories = factory.createOne(Categories);
+
+exports.getCategory = factory.getAll(Categories);
+
+exports.getCategories = factory.getOne(Categories);
+
+exports.updateCategory = factory.updateOne(Categories);
+
+exports.deleteCategory = factory.deleteOne(Categories);

@@ -15,6 +15,8 @@ const uniErrorHamndler = require('./controllers/errorContoller');
 const userRouter = require('./routes/userRouter');
 const customPostRouter = require('./routes/customPostRouter');
 const taxonomyRouter = require('./routes/taxonomyRouter');
+const postRouter = require('./routes/postRouter');
+const profileRouter = require('./routes/profileRouter');
 
 const server = express();
 
@@ -55,8 +57,10 @@ const enableCrossDomain = function(req, res, next) {
 server.use(enableCrossDomain);
 //ROUTES;
 server.use('/api/v1/users', userRouter);
-server.use('/api/v1/post-type', customPostRouter);
+server.use('/api/v1/custom', customPostRouter);
 server.use('/api/v1/taxonomy', taxonomyRouter);
+server.use('/api/v1/post', postRouter);
+server.use('/api/v1/profile', profileRouter);
 
 server.all('*', (req, res, next) => {
   next(new AppError(`Cannot Find ${req.originalUrl} on this server`, 404));

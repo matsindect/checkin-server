@@ -2,6 +2,8 @@ const crypto = require('crypto');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const validator = require('validator');
+const gravatar = require('gravatar');
+
 let SALT_WORK_FACTOR = 12;
 
 const userSchema = new mongoose.Schema({
@@ -10,6 +12,9 @@ const userSchema = new mongoose.Schema({
     required: [true, 'Username is required'],
     unique: true,
     select: false
+  },
+  avatar: {
+    type: String
   },
   user_firstname: {
     type: String,
@@ -85,6 +90,17 @@ userSchema.pre('save', function(next) {
       next();
     });
   });
+});
+
+userSchema.pre('save', function(next) {
+  var user = this;
+  const avatar = gravatar.url(user.user_email_address, {
+    s: '200', // Size
+    r: 'pg', // Rating
+    d: 'mm' // Default
+  });
+  this.avatar = avatar;
+  next();
 });
 
 userSchema.pre(/^find/, function(next) {
