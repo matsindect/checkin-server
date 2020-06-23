@@ -244,7 +244,7 @@ exports.updateCoverDetails = catchAsyncFunc(async (req, res, next) => {
     .indexOf(req.body._id);
 
   if (removeIndex !== -1) {
-    custompost.fields[removeIndex] = newFields;
+    custompost.cover_detail[removeIndex] = newFields;
   }
 
   //save
@@ -282,7 +282,7 @@ exports.updateCoverTab = catchAsyncFunc(async (req, res, next) => {
     .indexOf(req.body._id);
 
   if (removeIndex !== -1) {
-    custompost.fields[removeIndex] = newFields;
+    custompost.cover_tabs[removeIndex] = newFields;
   }
   //save
   await custompost.save();
@@ -325,7 +325,7 @@ exports.updatePostPreview = catchAsyncFunc(async (req, res, next) => {
     .indexOf(req.body._id);
 
   if (removeIndex !== -1) {
-    custompost.fields[removeIndex] = newFields;
+    custompost.post_preview[removeIndex] = newFields;
   }
   //save
   await custompost.save();

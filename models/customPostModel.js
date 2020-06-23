@@ -51,6 +51,9 @@ const customPostSchema = new Schema(
         description: {
           type: types.String
         },
+        type: {
+          type: types.String
+        },
         field_type: {
           type: types.String,
           required: true
