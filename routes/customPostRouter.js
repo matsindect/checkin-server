@@ -110,4 +110,5 @@ router
     authController.restrictTo('admin'),
     customPostController.deletePostPreview
   );
+
 module.exports = router;
