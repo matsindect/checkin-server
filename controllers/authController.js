@@ -27,11 +27,52 @@ const handshakeToken = (user, statusCode, res) => {
   res.status(statusCode).send({
     status: 'success',
     token,
-    data: {
-      user
-    }
+    user
   });
 };
+
+exports.checkUser =catchAsyncFunc(async(req,res,next)=>{
+  let token;
+  if (
+    req.headers.authorization &&
+    req.headers.authorization.startsWith('Bearer')
+  ) {
+    token = req.headers.authorization.split(' ')[1];
+  } else if (req.cookies.jwt) {
+    token = req.cookies.jwt;
+  }
+
+  if (!token) {
+    return next(
+      new AppError('You are not logged in, Please login to get access', 401)
+    );
+  }
+
+  const decodedtoken = await promisify(jwt.verify)(
+    token,
+    process.env.JWT_SECRET
+  );
+
+  // Check if user still exist
+  const currentUser = await User.findById(decodedtoken.id).select("user_name user_email_address");
+  if (!currentUser) {
+    return new AppError(
+      'User no longer exists, Please signup and get new token',
+      401
+    );
+  }
+
+  if (currentUser.passwordChanged(decodedtoken.iat)) {
+    return new AppError('Password chande, Please login aagain', 401);
+  }
+
+  
+  res.status(200).send({
+    status: 'success',
+    token,
+    user:currentUser
+  });
+})
 
 exports.signup = catchAsyncFunc(async (req, res, next) => {
   const newUser = await User.create(req.body);
@@ -168,6 +209,29 @@ exports.resetPassword = catchAsyncFunc(async (req, res, next) => {
 
   handshakeToken(user, 201, res);
 });
+
+exports.verifyEmails =catchAsyncFunc(async(req,res,next)=>{
+
+  const hashedToken = crypto
+    .createHash('sha256')
+    .update(req.params.token)
+    .digest('hex');
+
+  const user = await User.findOne({
+    emailVerifyToken: hashedToken
+  });
+
+  if (!user) {
+    return next(new AppError('Token has expired or is invalid', 401));
+  }
+  user.eemail_verified = true;
+
+  res.status(204).json({
+    status: 'success',
+    data: "Your email is verified"
+  });
+
+})
 
 exports.updatePassword = catchAsyncFunc(async (req, res, next) => {
   const user = await User.findById(req.user.id).select('+user_password');

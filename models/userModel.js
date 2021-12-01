@@ -2,8 +2,6 @@ const crypto = require('crypto');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const validator = require('validator');
-const gravatar = require('gravatar');
-
 let SALT_WORK_FACTOR = 12;
 
 const userSchema = new mongoose.Schema({
@@ -13,16 +11,9 @@ const userSchema = new mongoose.Schema({
     unique: true,
     select: false
   },
-  avatar: {
-    type: String
-  },
-  user_firstname: {
+  user_phone: {
     type: String,
-    required: [true, 'User First name is required']
-  },
-  user_lastname: {
-    type: String,
-    required: [true, 'User Last mame is required']
+    select: false
   },
   user_password: {
     type: String,
@@ -53,8 +44,19 @@ const userSchema = new mongoose.Schema({
   },
   user_role: {
     type: String,
-    enum: ['admin', 'user'],
+    enum: [
+      'admin',
+      'user',
+    ],
     default: 'user'
+  },
+  visitor: {
+    type: String,
+    select: true
+  },
+  newsletter: {
+    type: String,
+    select: true
   },
   date_created: {
     type: Date,
@@ -67,6 +69,21 @@ const userSchema = new mongoose.Schema({
   },
   passwordResetExpire: {
     type: Date,
+    select: false
+  },
+  emailVerifyToken: {
+    type: String,
+    select: false
+  },
+  email_verified: {
+    type: Boolean,
+    default: false,
+    select: false
+  },
+  application_id: {
+    type: String,
+    unique: true,
+    sparse: true,
     select: false
   },
   is_active: {
@@ -90,17 +107,6 @@ userSchema.pre('save', function(next) {
       next();
     });
   });
-});
-
-userSchema.pre('save', function(next) {
-  var user = this;
-  const avatar = gravatar.url(user.user_email_address, {
-    s: '200', // Size
-    r: 'pg', // Rating
-    d: 'mm' // Default
-  });
-  this.avatar = avatar;
-  next();
 });
 
 userSchema.pre(/^find/, function(next) {
@@ -145,4 +151,15 @@ userSchema.methods.creatUserResetToken = function() {
   return resetToken;
 };
 
-module.exports = mongoose.model('user', userSchema);
+userSchema.methods.creatEmailVerifyToken = function() {
+  const resetToken = crypto.randomBytes(32).toString('hex');
+
+  this.emailVerifyToken = crypto
+    .createHash('sha256')
+    .update(resetToken)
+    .digest('hex');
+
+  return resetToken;
+};
+
+module.exports = mongoose.model('User', userSchema);

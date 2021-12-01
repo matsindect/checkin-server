@@ -26,6 +26,10 @@ exports.createOne = Model =>
 exports.getAll = Model =>
   catchAsyncFunc(async (req, res, next) => {
     let filter = {};
+    if (req.params.specifierId)
+      filter = { specifier_company: req.params.specifierId };
+    if (req.params.projectsId) filter = { projects: req.params.projectsId };
+
     const tax_terms = new APIresourceFunc(Model.find(filter), req.query)
       .AdvancedFilter()
       .sort()

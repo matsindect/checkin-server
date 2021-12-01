@@ -11,28 +11,13 @@ const filterInputObj = (obj, ...allowedFields) => {
   return newInputsObj;
 };
 exports.createUser = catchAsyncFunc(async (req, res, next) => {
-  const user = await User.findOne({
-    user_email_address: req.body.user_email_address
+  const newUser = await User.create(req.body);
+  res.status(201).send({
+    status: 'success',
+    data: {
+      user: newUser
+    }
   });
-  if (user) {
-    errors = 'Email already exists';
-    return res.status(400).json(errors);
-  } else {
-    const newUser = await User.create({
-      user_name: req.body.user_name,
-      user_firstname: req.body.user_firstname,
-      user_lastname: req.body.user_lastname,
-      user_email_address: req.body.user_email_address,
-      user_password: req.body.user_password
-    });
-
-    res.status(201).send({
-      status: 'success',
-      data: {
-        user: newUser
-      }
-    });
-  }
 });
 
 exports.updateCurrentUser = catchAsyncFunc(async (req, res, next) => {
@@ -45,8 +30,7 @@ exports.updateCurrentUser = catchAsyncFunc(async (req, res, next) => {
   // update user document
   const filteredInputsBody = filterInputObj(
     req.body,
-    'user_firstname',
-    'user_lastname',
+    'user_name',
     'user_email_address'
   );
   const updatedUser = await User.findByIdAndUpdate(

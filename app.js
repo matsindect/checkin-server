@@ -11,14 +11,8 @@ const compression = require('compression');
 
 const AppError = require('./utils/appError');
 const uniErrorHamndler = require('./controllers/errorContoller');
-const swaggerJSDoc = require('swagger-jsdoc');
-const swaggerUi = require('swagger-ui-express');
+
 const userRouter = require('./routes/userRouter');
-const customPostRouter = require('./routes/customPostRouter');
-const taxonomyRouter = require('./routes/taxonomyRouter');
-const postRouter = require('./routes/postRouter');
-const profileRouter = require('./routes/profileRouter');
-const formRouter = require('./routes/formRoutes');
 
 const server = express();
 
@@ -28,36 +22,6 @@ if (process.env.NNODE_ENV === 'development') {
   server.use(morgan('dev'));
 }
 
-const swaggerDefinition = {
-  info: {
-    title: 'Alqayima system API',
-    version: '1.0.0',
-    description: 'Endpoints'
-  },
-  host: 'localhost:8086',
-  basePath: '/',
-  securityDefinitions: {
-    bearerAuth: {
-      type: 'apiKey',
-      name: 'Authorization',
-      scheme: 'bearer',
-      in: 'header'
-    }
-  }
-};
-
-const options = {
-  swaggerDefinition,
-  apis: ['./routes/*.js']
-};
-
-const swaggerSpec = swaggerJSDoc(options);
-
-server.get('/swagger.json', (req, res) => {
-  res.setHeader('Content-Type', 'application/json');
-  res.send(swaggerSpec);
-});
-
 // server.use(express.static('./public'));
 //limit number of api request to 100
 const limiter = ratelimit({
@@ -66,7 +30,7 @@ const limiter = ratelimit({
   message: 'You have exceeded the number of request, Try in an hour'
 });
 server.use('/api', limiter);
-server.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
 //body parser
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: true }));
@@ -89,11 +53,7 @@ const enableCrossDomain = function(req, res, next) {
 server.use(enableCrossDomain);
 //ROUTES;
 server.use('/api/v1/users', userRouter);
-server.use('/api/v1/custom', customPostRouter);
-server.use('/api/v1/taxonomy', taxonomyRouter);
-server.use('/api/v1/post', postRouter);
-server.use('/api/v1/profile', profileRouter);
-server.use('/api/v1', formRouter);
+
 
 server.all('*', (req, res, next) => {
   next(new AppError(`Cannot Find ${req.originalUrl} on this server`, 404));
